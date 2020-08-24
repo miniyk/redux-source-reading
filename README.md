@@ -6,17 +6,17 @@
 
 * 用图来解释react描述为不用redux的情况数据常规流转如下
 
-<img src='./src/images/flow.png'>
+<img src='./flow.png'>
 
 ---
 * 用了redux之后的数据流转如下
 
-<img src='./src/images/redux-flow.png'>
+<img src='./redux-flow.png'>
 
 ## 2.redux的核心要素
 > * 如何理解redux核心要素 用react数据流转类比，先看图
 
-<img src='./src/images/redux-sample.png'>
+<img src='./redux-sample.png'>
 
 1. state变化后就调用render 等同于整个store含有的订阅监听功能
 2. 在父组件callback回调就相当于执行了reducer逻辑处理的部分
@@ -25,7 +25,7 @@
 >* redux自身的经典数据流转图如下
 ---
 
-<img src='./src/images/redux-classical-flow.png'>
+<img src='./redux-classical-flow.png'>
 
 1. action纯声明式数据结构，只提供事件的要素比如参数或者function名，不提供逻辑
 2. reducer匹配函数，action发送是全局的，所有reducer都会收到匹配命中后取出action要素进行逻辑处理，修改state状态并返回新的state
@@ -507,7 +507,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
     ```
 
 	*  一个小问题如果是在中间件中在进行dispatch会怎么样呢？ 如下图会出现死循环如果不加条件的话
-    <img src='./src/images/middleware.png'>
+    <img src='./middleware.png'>
 * compose.js源码分析 代码开头的英文注释写的很清楚，不明白直接看注释例子用法 就是利用reduce来实现函数嵌套，也叫做科里化
 
 ```js

@@ -9,12 +9,12 @@
 <img src='./flow.png'>
 
 ---
-* 用了redux之后的数据流转如下
+* 当组件多了之后且数据之间相互流转多了之后会是如下这种情况，如下图，可以看出这样层层传递其实多了之后，很多状态都会提升高父级或者父级的父级，当然此时可能你会用到context，这样至少可以避免层层传递props，但是state的管理还是需要放到上层统一管理分发
 
 <img src='./redux-flow.png'>
 
 ## 2.redux的核心要素
-> * 如何理解redux核心要素 用react数据流转类比，先看图
+> * 如何理解redux核心要素 用react数据流转类比
 
 <img src='./redux-sample.png'>
 
@@ -23,7 +23,6 @@
 3. 在子组件触发callback相当于执行action , args可以类比为payload
 
 >* redux自身的经典数据流转图如下
----
 
 <img src='./redux-classical-flow.png'>
 
@@ -65,7 +64,7 @@ export {
 ```
 
 1. combineReducers 先看这个因为它比较简单
-    *  比如下面的官方的例子是 添加todo的reducer 这里做个比喻，把state想象为一些规则的几何形状，action理解为改变这些形状的方法，比如生成三角形，四边形规则方法
+    *  比如下面的官方的例子是 添加todo的reducer 这里做个比喻，把state想象为一些规则的几何形状，action理解为改变这些形状的方法，比如生成三角形，四边形规则方法这个就可以看作action的作用
 	
 ```js
 import {
@@ -169,7 +168,7 @@ export default function logReducer(log = [], action) { // 传入的 state 其实
 * 这样拆出多个reducer就可以分别管理对应的state，但是因为redux允许app里只有唯一一个store，所以dispatch的时候是会经过所有的reducer的，这也是为什么会要求reducer返回state了，不然其它地方state就获取不到了，提供这个combineReducer其实是建议分而治之state管理
 
 
-* combineReducers 源码到底做了什么
+* combineReducers 源码到底做了什么，简单理解就是将所有reducer合并用函数名作为key，key对应的是具体的函数体，执行之前先保存之前的state，与执行之后的state做对比，如果有change就返回新的state，否则返回之前的state，注意这里的return是什么执行的？注释里有说明
 ```js
 function combineReducers(reducers) {
   var reducerKeys = Object.keys(reducers)
@@ -234,8 +233,7 @@ function bindActionCreators(actionCreators, dispatch) {
 ```
 
 3. createStore
->* redux的核心方法 先来一个简化版理解下 感觉就是返回了一些方法
-
+>* redux的核心方法 先来一个简化版理解下 感觉就是返回了一些方法  dispatch,subscribe,getState,replaceReducer, 这些方法就是我们用redux经常会用到的方法
 ```js
 export default function createStore(reducer, preloadedState, enhancer) {
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
@@ -272,7 +270,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 }
 ```
 
-* createStore 源码分析 详细注释版 12-23行是该方法的重点 这里可以看出核心方法是使用了多个高阶函数嵌套写法，目的其实很明显少写很多代码，同时可以很好的利用闭包特性
+* createStore 源码分析 详细注释版 12-23行是该方法的重点 这里可以看出核心方法是使用了多个高阶函数嵌套写法，目的其实很明显少写很多代码，同时可以很好的利用闭包特性，代码分析就写在注释里了
 
 ```js
 import $$observable from 'symbol-observable'

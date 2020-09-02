@@ -1,4 +1,4 @@
-# redux-source-reading
+# redux-source-reading(redux源码阅读)
 ## 1.redux的由来
 > * 宏观层面解释：在写复杂多页面UI逻辑或大型项目时 就会出现很多要管理的状态，如果比如最早之前使用jQuery，变量多了，到处都可以修改，用function隔离的有做不到充分共享，其次想要快速定位问题也比较麻烦，因为没有统一管理约束数据流向。目前有很多状态管理库，比如redux，flux，mobx等
 
